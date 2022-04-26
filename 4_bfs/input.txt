@@ -4,3 +4,4 @@ B E G
 C G
 -1
 S
+G

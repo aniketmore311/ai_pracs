@@ -2,6 +2,7 @@ class Graph:
     def __init__(self):
         self.adjDict = dict()
         self.start_node = "S"
+        self.goal_node = "G"
         self.path = list()
 
     def add_edge(self, u, v):
@@ -17,6 +18,9 @@ class Graph:
     def set_start_node(self, node):
         self.start_node = node
 
+    def set_goal_node(self, node):
+        self.goal_node = node
+
     def bfs(self):
         visited = list()
         q = list()
@@ -25,6 +29,9 @@ class Graph:
         while q:
             node = q.pop(0)
             print(node, end=" ")
+            if node == self.goal_node:
+                print("\n", end="")
+                return True
             children = list()
             if node in self.adjDict:
                 children = self.adjDict[node]
@@ -33,7 +40,8 @@ class Graph:
                     visited.append(child)
                     q.append(child)
         print("\n", end="")
-        
+        return False
+
 
 def main():
     print("enter input")
@@ -48,8 +56,14 @@ def main():
             graph.add_edge(parent, child)
     # graph.print()
     start_node = input("enter start node: ")
+    goal_node = input("enter goal node: ")
     graph.set_start_node(start_node)
-    graph.bfs()
+    graph.set_goal_node(goal_node)
+    found = graph.bfs()
+    if found:
+        print(f"goal node {graph.goal_node} found")
+    else:
+        print(f"goal node {graph.goal_node} not found")
 
 
 main()
