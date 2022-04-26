@@ -21,29 +21,32 @@ class Graph:
     def set_goal_node(self, node):
         self.goal_node = node
 
-    def dfs(self):
+    def dls(self, depth_limit):
         visited = list()
         path = list()
-        found = self.dfs_helper(visited, path, self.start_node)
+        found = self.dls_helper(visited, path, self.start_node, 0, depth_limit)
         if found:
             print("found")
             print(self.path)
         else:
             print("not found")
 
-    def dfs_helper(self, visited, path, node):
+    def dls_helper(self, visited, path, node, current_depth, depth_limit):
         if node in visited:
+            return False
+        if current_depth > depth_limit:
             return False
         visited.append(node)
         path.append(node)
         if node == self.goal_node:
             self.path = path.copy()
             return True
+
         children = []
         if node in self.adjDict:
             children = self.adjDict[node]
         for child in children:
-            found = self.dfs_helper(visited, path, child)
+            found = self.dls_helper(visited, path, child, current_depth+1, depth_limit)
             if found:
                 return True
         path.pop()
@@ -64,11 +67,10 @@ def main():
     # graph.print()
     start_node = input("enter start node: ")
     goal_node = input("enter goal node: ")
+    depth_limit = int(input("enter depth limit: "))
     graph.set_start_node(start_node)
     graph.set_goal_node(goal_node)
-    graph.dfs()
+    graph.dls(depth_limit)
+
 
 main()
-
-
-
