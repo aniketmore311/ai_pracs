@@ -25,11 +25,7 @@ class Graph:
         visited = list()
         path = list()
         found = self.dls_helper(visited, path, self.start_node, 0, depth_limit)
-        if found:
-            print("found")
-            print(self.path)
-        else:
-            print("not found")
+        return found
 
     def dls_helper(self, visited, path, node, current_depth, depth_limit):
         if node in visited:
@@ -70,7 +66,12 @@ def main():
     depth_limit = int(input("enter depth limit: "))
     graph.set_start_node(start_node)
     graph.set_goal_node(goal_node)
-    graph.dls(depth_limit)
+    found = graph.dls(depth_limit)
+    if found:
+        print("found!!")
+        print(graph.path)
+    else:
+        print("not found")
 
 
 main()
