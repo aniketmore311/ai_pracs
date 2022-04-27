@@ -1,5 +1,5 @@
 import sys
-
+# visited is not supposed to be used in this algorithm so remove it
 
 class Graph:
     def __init__(self):
